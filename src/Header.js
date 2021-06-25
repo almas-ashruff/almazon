@@ -3,15 +3,21 @@ import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import RoomIcon from '@material-ui/icons/Room';
+import { 
+    Link 
+} from 'react-router-dom';
 
 
 
 function Header() {
     return (
         <Container>
-            <HeaderLogo>
-                <img src={'https://i.imgur.com/7I9Was5.png'}/>
-            </HeaderLogo>
+            <Link to="/">
+                <HeaderLogo>
+                    <img src={'https://i.imgur.com/7I9Was5.png'}/>
+                </HeaderLogo>
+
+            </Link>
 
 
             <HeaderOptionAddress>
@@ -52,13 +58,16 @@ function Header() {
                         & Orders
                     </OptionLineTwo>
                 </HeaderOption>
-
+            
+                
                 <HeaderOptionCart>
-                    <ShoppingCartIcon />
-                    <CartCount>
-                        8
-                    </CartCount>
-                </HeaderOptionCart>
+                    <Link to="/cart">
+                        <ShoppingCartIcon />
+                        <CartCount>
+                            8
+                        </CartCount>
+                        </Link>
+                </HeaderOptionCart>  
                 
             </HeaderNavItems>    
         </Container>
@@ -137,8 +146,14 @@ const HeaderOption = styled.div`
 
 const HeaderOptionCart = styled.div`
     display: flex;
-    align-items: center;
-    padding-right: 10px;
+
+    a {
+        display: flex;
+        align-items: center;
+        padding-right: 10px;
+        color: white;
+        text-decoration : none;
+    }
 
 
 `
