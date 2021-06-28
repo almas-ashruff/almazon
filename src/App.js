@@ -9,8 +9,34 @@ import {
   Link 
 } from "react-router-dom";
 import styled from 'styled-components';
+import { useState, useEffect} from 'react';
+import { db } from './firebase';
 
 function App() {
+
+  const [cartItems, setCartItems ] = useState([]);
+
+    const getCartItems = () => {
+        db.collection('cartItems').onSnapshot((snapshot) => {
+            const tempItems = snapshot.docs.map((doc) =>({
+                id: doc.id,
+                product: doc.data()
+            }))
+
+            setCartItems(tempItems);
+        });
+    }
+
+    useEffect(() => {
+        getCartItems();
+    }, []) // we put an empty array with use effect because we want this to run at the initialization of the component. 
+            // ...if we passed a variable, it would run whenever there are changes in the variable.
+
+// App --> Cart --> CartItems
+
+
+console.log(cartItems);
+
   return (
     <Router>
         <Container>
@@ -18,7 +44,7 @@ function App() {
           <Switch>
 
             <Route path="/cart">
-              <Cart />
+              <Cart cartItems={cartItems} />  
             </Route>
 
             <Route path="/">

@@ -5,18 +5,18 @@ import { db } from './firebase';
 
 
 function Home() {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]); // products database from firestore
 
     const getProducts = () => {
         db.collection('products').onSnapshot((snapshot) => {
             let tempProducts = [];
-            tempProducts = snapshot.docs.map((doc) => (
+            tempProducts = snapshot.docs.map((doc) => ( // state for products database
                 {
                     id: doc.id,
                     product: doc.data()
                 }
             ));
-            setProducts(tempProducts);
+            setProducts(tempProducts); 
         });
     }
 
@@ -34,12 +34,13 @@ function Home() {
 
             <Content>
                 {
-                    products.map((data) => (
+                    products.map((data) => ( // props for products db
                         <Product
                             title = {data.product.name}
                             price = {data.product.price}
                             rating = {data.product.rating}
                             image = {data.product.image}
+                            id = {data.id}
                         />
                     ))
                 }   

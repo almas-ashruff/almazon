@@ -1,7 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { db } from './firebase';
 
-function Product({ title, price, rating, image, id }) {
+function Product({ title, price, rating, image, id }) { //recieving props for products db   
+    const addToCart = () => {
+        const cartItem = db.collection("cartItems").doc(id);
+        cartItem.get().then((doc) => {
+            console.log(doc);
+            if(doc.exists){
+                cartItem.update({
+                    quantity: doc.data().quantity + 1
+                })
+            } else {
+                db.collection("cartItems").doc(id).set({
+                    name: title,
+                    image: image,
+                    price: price,
+                    quantity: 1
+                })
+            }
+        }) 
+
+    }
+
 
     return (
         <Container>
@@ -11,24 +32,27 @@ function Product({ title, price, rating, image, id }) {
             <Price>
                 ${price}
             </Price>
-
             <Rating>
                 {
                     Array(rating)
                     .fill()
-                    .map(rating => <p>⭐️</p>)
+                    .map(rating => <p>⭐️</p>) // fills rating in the array, where rating consists of one <p> tag of the ⭐️ emoji
                 }
             </Rating>
                 
             <Image src={image}/>
             <ActionSection>
-                <AddToCartButton>
+                <AddToCartButton
+                    onClick={addToCart}
+                >
                     Add to Cart
                 </AddToCartButton>
             </ActionSection>
         </Container>
     )
 }
+
+// Add To Cart Button --> AddToCart() --> db --> cart
 
 export default Product
 
@@ -60,6 +84,7 @@ const AddToCartButton = styled.button`
     background-color: #f0c14b;
     border: 2px solid #a88734;
     border-radius: 2px;
+    cursor: pointer;
 `
 
 const Image = styled.img`

@@ -14,9 +14,10 @@ function Header() {
         <Container>
             <Link to="/">
                 <HeaderLogo>
-                    <img src={'https://i.imgur.com/7I9Was5.png'}/>
+                    <img src={'https://i.imgur.com/7I9Was5.png'}/> 
+                    {/* amazon logo */}
                 </HeaderLogo>
-
+  
             </Link>
 
 
@@ -64,7 +65,7 @@ function Header() {
                     <Link to="/cart">
                         <ShoppingCartIcon />
                         <CartCount>
-                            8
+                            3
                         </CartCount>
                         </Link>
                 </HeaderOptionCart>  
@@ -160,4 +161,6 @@ const HeaderOptionCart = styled.div`
 
 const CartCount = styled.div`
     padding-left: 4px;
+    font-weight:700;
+    color: #f08804;
 `
