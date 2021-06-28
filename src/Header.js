@@ -9,12 +9,25 @@ import {
 
 
 
-function Header() {
+function Header({ cartItems }) {
+
+
+    const getCount = () => {
+        let count = 0;
+        // Loop through all items in the cart
+        cartItems.forEach((item) => {  
+            count += item.product.quantity; 
+        })
+        return count;
+    }
+
+
     return (
+
         <Container>
             <Link to="/">
                 <HeaderLogo>
-                    <img src={'https://i.imgur.com/7I9Was5.png'}/> 
+                    <img src={'https://i.imgur.com/85Pw4mQ.png'}/> 
                     {/* amazon logo */}
                 </HeaderLogo>
   
@@ -65,7 +78,7 @@ function Header() {
                     <Link to="/cart">
                         <ShoppingCartIcon />
                         <CartCount>
-                            3
+                            {getCount()}
                         </CartCount>
                         </Link>
                 </HeaderOptionCart>  
@@ -88,8 +101,8 @@ const Container = styled.div`
 `
 const HeaderLogo = styled.div`
     img {
-        width: 100px;
-        margin-left: 10px;
+        width: 150px;
+        margin-left: 5px;
     }
 `
 

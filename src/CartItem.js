@@ -1,7 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import { db } from './firebase';
+import NumberFormat from "react-number-format";
 
-function CartItem({ id, item }) {
+
+
+
+const CartItem = ({ id, item }) => {
+
+    const deleteItem = (e) => {
+        e.preventDefault(); // to prevent whole page refresh
+        db.collection("cartItems").doc(id).delete();
+    }
+      
+    const changeQuantity = (newQuantity) => {
+        db.collection('cartItems').doc(id).update({
+            quantity: parseInt(newQuantity)
+        })
+    }
 
     let options = []
 
@@ -26,17 +42,21 @@ function CartItem({ id, item }) {
                     <CartItemQuantityContainer>
                         <select
                             value={item.quantity}
+                            onChange={(e) => changeQuantity(e.target.value)}
+                            // e recieves the 'event' when we change a value on pressing the quantity selector
                         >
                             {options}
                         </select>
                     </CartItemQuantityContainer>
-                    <CartItemDeleteContainer>
+                    <CartItemDeleteContainer
+                    onClick={deleteItem} > 
                         Delete
                     </CartItemDeleteContainer>
                 </CartItemInfoBottom>
             </CartItemInfo>
             <CartItemPrice>
-                ${item.price}
+            <NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'₹'} />
+
             </CartItemPrice>
         </Container>
     )

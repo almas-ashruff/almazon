@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { db } from './firebase';
+import NumberFormat from "react-number-format";
+
 
 function Product({ title, price, rating, image, id }) { //recieving props for products db   
     const addToCart = () => {
@@ -30,7 +32,7 @@ function Product({ title, price, rating, image, id }) { //recieving props for pr
             </Title>
                 {title}
             <Price>
-                ${price}
+            <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'₹'} />
             </Price>
             <Rating>
                 {

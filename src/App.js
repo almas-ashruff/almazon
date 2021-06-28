@@ -11,6 +11,7 @@ import {
 import styled from 'styled-components';
 import { useState, useEffect} from 'react';
 import { db } from './firebase';
+import Login from './Login';
 
 function App() {
 
@@ -40,9 +41,12 @@ console.log(cartItems);
   return (
     <Router>
         <Container>
-          <Header />
+          <Header cartItems={cartItems} />
           <Switch>
 
+          <Route path="/login">
+              <Login />  
+            </Route>
             <Route path="/cart">
               <Cart cartItems={cartItems} />  
             </Route>
