@@ -14,7 +14,7 @@ import { db, auth } from './firebase';
 import Login from './Login';
 
 function App() {
-  const[ user, setUser ] = useState(null);
+  const[ user, setUser ] = useState(JSON.parse(localStorage.getItem('user'))); // checks in the local storage if a user object is stored. If NULL, opens login. Else, everything else
   const [cartItems, setCartItems ] = useState([]);
 
     const getCartItems = () => {
@@ -29,8 +29,9 @@ function App() {
     }
 
     const signOut = () => {
-      auth.signOut().then(() => {
-        setUser(null)
+      auth.signOut().then(() => { 
+        setUser(null) // changes state of the user to null
+        localStorage.removeItem('user') //removes user from local storage during logout
       })
     }
     useEffect(() => {

@@ -73,4 +73,5 @@ const Content = styled.div`
     margin-top: -350px;
     z-index: 100;
     display: flex;
+    margin-bottom: 20px;
 `

@@ -29,6 +29,7 @@ const Container = styled.div`
     margin-right: 18px;
     padding: 20px;
     background-color: white;
+    min-height: 200px;
 
 `   
 

@@ -92,13 +92,13 @@ const CartItemInfo = styled.div`
 const CartItemInfoTop = styled.div`
     color: #007185;
     h2 {
-        font-size: 28px;
+        font-size: 20px;
     }
 `
 
 const CartItemInfoBottom = styled.div`
     display: flex;
-    margin-top: 4px;
+    margin-top: 10px;
     align-items: center;
 `
 

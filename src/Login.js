@@ -13,6 +13,7 @@ function Login({ setUser}) {
                 emain: user.email,
                 photo: user.photoURL
             }
+            localStorage.setItem('user', JSON.stringify(newUser))
             setUser(newUser)
         }).catch((error) => {
             alert(error.message);
@@ -56,6 +57,7 @@ const Content = styled.div`
 `
 
 const AmazonLogo = styled.img`
+    margin-top: -80px;
     height: 280px;
     margin-bottom: -50px;
 `
