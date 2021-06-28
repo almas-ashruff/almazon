@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import RoomIcon from '@material-ui/icons/Room';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { 
     Link 
 } from 'react-router-dom';
 
 
 
-function Header({ cartItems }) {
+function Header({ signOut, user, cartItems }) {
 
 
     const getCount = () => {
@@ -55,9 +56,9 @@ function Header({ cartItems }) {
             </HeaderSearch> 
 
             <HeaderNavItems>
-                <HeaderOption>
+                <HeaderOption onClick={signOut}>
                     <OptionLineOne>
-                        Hello, Almas
+                        Hello, {user.name}
                     </OptionLineOne>
                     <OptionLineTwo>
                         Account & Lists
@@ -80,8 +81,11 @@ function Header({ cartItems }) {
                         <CartCount>
                             {getCount()}
                         </CartCount>
-                        </Link>
+                    </Link>
                 </HeaderOptionCart>  
+                <SignOut>
+                    <ExitToAppIcon onClick={signOut}/> 
+                </SignOut>
                 
             </HeaderNavItems>    
         </Container>
@@ -104,6 +108,7 @@ const HeaderLogo = styled.div`
         width: 150px;
         margin-left: 5px;
     }
+    
 `
 
 const HeaderOptionAddress = styled.div`
@@ -168,7 +173,9 @@ const HeaderOptionCart = styled.div`
         color: white;
         text-decoration : none;
     }
-
+    :hover{
+        transform: scale(1.1);
+    }
 
 `
 
@@ -176,4 +183,14 @@ const CartCount = styled.div`
     padding-left: 4px;
     font-weight:700;
     color: #f08804;
+`
+
+const SignOut = styled.div`
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    margin-left: 4px;
+    :hover{
+        transform: scale(1.1);
+    }
 `

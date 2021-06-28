@@ -3,12 +3,17 @@ import styled from 'styled-components'
 import { auth, provider } from './firebase'
 
 
-function Login() {
+function Login({ setUser}) {
 
     const signIn = () => {
         auth.signInWithPopup(provider).then((result) => {
             let user = result.user;
-            console.log(user);
+            let newUser = {
+                name: (user.displayName. split(' '))[0],
+                emain: user.email,
+                photo: user.photoURL
+            }
+            setUser(newUser)
         }).catch((error) => {
             alert(error.message);
         });

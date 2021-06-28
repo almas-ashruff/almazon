@@ -10,11 +10,11 @@ import {
 } from "react-router-dom";
 import styled from 'styled-components';
 import { useState, useEffect} from 'react';
-import { db } from './firebase';
+import { db, auth } from './firebase';
 import Login from './Login';
 
 function App() {
-
+  const[ user, setUser ] = useState(null);
   const [cartItems, setCartItems ] = useState([]);
 
     const getCartItems = () => {
@@ -28,6 +28,11 @@ function App() {
         });
     }
 
+    const signOut = () => {
+      auth.signOut().then(() => {
+        setUser(null)
+      })
+    }
     useEffect(() => {
         getCartItems();
     }, []) // we put an empty array with use effect because we want this to run at the initialization of the component. 
@@ -40,13 +45,21 @@ console.log(cartItems);
 
   return (
     <Router>
-        <Container>
-          <Header cartItems={cartItems} />
+      {
+        !user ? ( // if no user exists, show login, else show everything else
+          <Login setUser = {setUser}/>
+        ) : (
+          <Container>
+            <Header 
+              signOut = {signOut}
+              user = {user} 
+              cartItems={cartItems} />
           <Switch>
 
-          <Route path="/login">
-              <Login />  
+            <Route path="/login">
+              <Login setUser = {setUser}/>  
             </Route>
+
             <Route path="/cart">
               <Cart cartItems={cartItems} />  
             </Route>
@@ -57,7 +70,10 @@ console.log(cartItems);
 
           </Switch>
         </Container>
-    </Router>
+      )
+    }
+  </Router>
+        
   );
 }
 
